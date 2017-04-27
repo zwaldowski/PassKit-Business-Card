@@ -1,78 +1,83 @@
 {
 	"formatVersion" : 1,
-	"passTypeIdentifier" : "pass.au.com.timoliver.businesscard.dank",
+	"passTypeIdentifier" : "pass.com.patrickbalestra.me",
 	"serialNumber" : "XD",
-	"teamIdentifier" : "**INSERT YOUR TEAM IDENTIFIER CODE HERE**",
+	"teamIdentifier" : "2EZDW5DVTJ",
 	"barcodes" : [
 		{
-		    "message" : "https://downloads.timoliver.com.au/tim-businesscard.pkpass",
+		    "message" : "https://patrickbalestra.com/PatrickBalestraPass.pkpass",
 		    "format" : "PKBarcodeFormatQR",
 		    "messageEncoding" : "iso-8859-1"
 		}
 	],
-	"organizationName" : "Tim Oliver",
-	"description" : "Tim Oliver",
+	"organizationName" : "Patrick Balestra",
+	"description" : "Patrick Balestra",
 	"foregroundColor" : "rgb(255, 255, 255)",
 	"backgroundColor" : "rgb(20, 20, 20)",
-	"labelColor" : "rgb(190, 57, 57)",
-	"storeCard" : { 
+	"labelColor" : "rgb(29, 208, 214)",
+	"storeCard" : {
 		"headerFields" : [
 			{
 				"key" : "header-name",
 				"textAlignment" : "PKTextAlignmentRight",
-				"label" : "PROFESSION",
-				"value" : "Hanzo Main"
+				"label" : "WE MET AT",
+				"value" : "WWDC 2017"
 			}
 		],
 		"auxiliaryFields" : [
 			{
-				"key" : "blog",
-				"label" : "BLOG",
-				"value" : "http://timoliver.blog",
+				"key" : "twitter",
+				"label" : "TWITTER",
+				"value" : "@BalestraPatrick",
 				"textAlignment" : "PKTextAlignmentLeft"
 			},
 			{
-				"key" : "twitter",
-				"label" : "TWITTER",
-				"value" : "@TimOliverAU",
+				"key" : "blog",
+				"label" : "WEBSITE",
+				"value" : "https://patrickbalestra.com",
 				"textAlignment" : "PKTextAlignmentRight"
 			}
 		],
-		"backFields" : [ 
+		"backFields" : [
 			{
 				"key" : "back-name",
 				"label" : "NAME",
-				"value" : "Tim Oliver"
+				"value" : "Patrick Balestra"
 			},
 			{
 				"key" : "back-role",
 				"label" : "OCCUPATION",
-				"value" : "CMO - Chief Memes Officer"
+				"value" : "University Student @ University of Lugano"
 			},
 			{
 				"key" : "back-email",
 				"label" : "EMAIL",
-				"attributedValue" : "<a href='mailto:info@timoliver.com.au'>info@timoliver.com.au</a>"
+				"attributedValue" : "<a href='mailto:me@patrickbalestra.com'>me@patrickbalestra.com</a>"
+			},
+			{
+				"key" : "back-email",
+				"label" : "WEBSITE",
+				"attributedValue" : "<a href='https://www.patrickbalestra.com'>https://www.patrickbalestra.com</a>"
 			},
 			{
 				"key" : "back-blog",
 				"label" : "BLOG",
-				"attributedValue" : "<a href='http://timoliver.blog'>http://timoliver.blog</a>"
+				"attributedValue" : "<a href='https://blog.patrickbalestra.com'>https://blog.patrickbalestra.com</a>"
+			},
+			{
+				"key" : "back-github",
+				"label" : "GITHUB",
+				"attributedValue" : "<a href='https://github.com/BalestraPatrick'>@BalestraPatrick</a>"
 			},
 			{
 				"key" : "back-email",
 				"label" : "TWITTER",
-				"attributedValue" : "<a href='http://twitter.com/timoliverau'>@TimOliverAU</a>"
-			},	
+				"attributedValue" : "<a href='https://twitter.com/BalestraPatrick'>@BalestraPatrick</a>"
+			},
 			{
 				"key" : "back-instagram",
 				"label" : "INSTAGRAM",
-				"attributedValue" : "<a href='http://instagram.com/timoliver'>@TimOliver</a>"
-			},	
-			{
-				"key" : "back-github",
-				"label" : "GITHUB",
-				"attributedValue" : "<a href='http://github.com/timoliver'>@TimOliver</a>"
+				"attributedValue" : "<a href='https://instagram.com/BalestraPatrick'>@BalestraPatrick</a>"
 			}
 		]
 	}
