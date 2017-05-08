@@ -1,84 +1,89 @@
 {
-	"formatVersion" : 1,
-	"passTypeIdentifier" : "pass.com.patrickbalestra.me",
-	"serialNumber" : "XD",
-	"teamIdentifier" : "2EZDW5DVTJ",
-	"barcodes" : [
-		{
-		    "message" : "https://patrickbalestra.com/PatrickBalestraPass.pkpass",
-		    "format" : "PKBarcodeFormatQR",
-		    "messageEncoding" : "iso-8859-1"
-		}
-	],
-	"organizationName" : "Patrick Balestra",
-	"description" : "Patrick Balestra",
-	"foregroundColor" : "rgb(255, 255, 255)",
-	"backgroundColor" : "rgb(20, 20, 20)",
-	"labelColor" : "rgb(29, 208, 214)",
-	"storeCard" : {
-		"headerFields" : [
-			{
-				"key" : "header-name",
-				"textAlignment" : "PKTextAlignmentRight",
-				"label" : "WE MET AT",
-				"value" : "WWDC 2017"
-			}
-		],
-		"auxiliaryFields" : [
-			{
-				"key" : "twitter",
-				"label" : "TWITTER",
-				"value" : "@BalestraPatrick",
-				"textAlignment" : "PKTextAlignmentLeft"
-			},
-			{
-				"key" : "blog",
-				"label" : "WEBSITE",
-				"value" : "https://patrickbalestra.com",
-				"textAlignment" : "PKTextAlignmentRight"
-			}
-		],
-		"backFields" : [
-			{
-				"key" : "back-name",
-				"label" : "NAME",
-				"value" : "Patrick Balestra"
-			},
-			{
-				"key" : "back-role",
-				"label" : "OCCUPATION",
-				"value" : "University Student @ University of Lugano"
-			},
-			{
-				"key" : "back-email",
-				"label" : "EMAIL",
-				"attributedValue" : "<a href='mailto:me@patrickbalestra.com'>me@patrickbalestra.com</a>"
-			},
-			{
-				"key" : "back-email",
-				"label" : "WEBSITE",
-				"attributedValue" : "<a href='https://www.patrickbalestra.com'>https://www.patrickbalestra.com</a>"
-			},
-			{
-				"key" : "back-blog",
-				"label" : "BLOG",
-				"attributedValue" : "<a href='https://blog.patrickbalestra.com'>https://blog.patrickbalestra.com</a>"
-			},
-			{
-				"key" : "back-github",
-				"label" : "GITHUB",
-				"attributedValue" : "<a href='https://github.com/BalestraPatrick'>@BalestraPatrick</a>"
-			},
-			{
-				"key" : "back-email",
-				"label" : "TWITTER",
-				"attributedValue" : "<a href='https://twitter.com/BalestraPatrick'>@BalestraPatrick</a>"
-			},
-			{
-				"key" : "back-instagram",
-				"label" : "INSTAGRAM",
-				"attributedValue" : "<a href='https://instagram.com/BalestraPatrick'>@BalestraPatrick</a>"
-			}
-		]
-	}
+    "formatVersion": 1,
+    "passTypeIdentifier": "pass.com.bignerdranch.business-cards",
+    "teamIdentifier": "439592V3LM",
+    "serialNumber": "6FBDE599-57EB-46B4-BFF8-5481E1464074",
+    "barcodes": [
+        {
+            "message": "https://waldowski.me/static/zach%2Bbignerd.pkpass",
+            "format": "PKBarcodeFormatQR",
+            "messageEncoding": "iso-8859-1"
+        }
+    ],
+    "organizationName": "Big Nerd Ranch",
+    "description": "Zachary Waldowski",
+    "logoText": "Big Nerd Ranch",
+    "foregroundColor": "rgb(245, 244, 241)",
+    "backgroundColor": "rgb(68, 68, 64)",
+    "labelColor": "rgb(244, 176, 40)",
+    "generic": {
+        "headerFields": [
+            {
+                "key": "header-name",
+                "textAlignment": "PKTextAlignmentRight",
+                "label": "we met at",
+                "value": "WWDC"
+            }
+        ],
+        "primaryFields": [
+          {
+            "key": "role",
+            "label": "Software Developer",
+            "value": "Zachary Waldowski",
+            "textAlignment": "PKTextAlignmentLeft"
+          }
+        ],
+        "auxiliaryFields": [
+            {
+                "key": "twitter",
+                "label": "Twitter",
+                "value": "@zwaldowski",
+                "textAlignment": "PKTextAlignmentLeft"
+            },
+            {
+                "key": "mail",
+                "label": "Mail",
+                "value": "zachary@bignerdranch.com",
+                "textAlignment": "PKTextAlignmentRight"
+            }
+        ],
+        "backFields": [
+            {
+                "key": "back-about",
+                "label": "\"If found, please return to…\"",
+                "attributedValue": "<b>Hello!</b> We met at WWDC. I'm trying to be more green, and shared this with you instead of a business card.\n\nWe're <a href=\"https://bignerdranch.com\">Big Nerd Ranch</a>. From beautiful Atlanta, GA, USA, we build innovative mobile apps for clients, teach immersive development bootcamps, and write the best-selling Big Nerd Ranch Guides."
+            },
+            {
+                "key": "back-mail",
+                "label": "Mail",
+                "attributedValue": "<a href=\"mailto:zachary@bignerdranch.com\">zachary@bignerdranch.com</a>"
+            },
+            {
+                "key": "back-phone",
+                "label": "Phone",
+                "attributedValue": "<a href=\"tel:+18433336836\">+1 (843) 333-6836</a>"
+            },
+            {
+                "key": "back-github",
+                "label": "GitHub",
+                "attributedValue": "<a href=\"https://github.com/zwaldowski\">@zwaldowski</a>"
+            },
+            {
+                "key": "back-twitter",
+                "label": "Twitter",
+                "attributedValue": "<a href=\"https://twitter.com/zwaldowski\">@zwaldowski</a>"
+            },
+            {
+                "key": "back-web",
+                "label": "Web",
+                "attributedValue": "<a href=\"https://waldowski.me\">https://waldowski.me</a>"
+            },
+            {
+                "key": "back-vcard",
+                "label": "Contact Card",
+                "attributedValue": "<a href=\"https://waldowski.me/static/zach.vcf\">Link</a>"
+            }
+
+        ]
+    }
 }
