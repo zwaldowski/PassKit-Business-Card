@@ -42,7 +42,7 @@ Once `pass.json` is configured with your Pass Type ID and Team ID, and you've in
 
 Open Terminal, navigate to this project folder, and then run
 ```
-./signpass -p PassKit-Business-Card
+./passutil.swift sign -i PassKit-Business-Card
 ```
 
 If all goes well, this will generate a `PassKit-Business-Card.pkpass` file in the same folder.
