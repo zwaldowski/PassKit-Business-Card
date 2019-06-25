@@ -3,19 +3,11 @@
     "passTypeIdentifier": "pass.com.bignerdranch.business-cards",
     "teamIdentifier": "439592V3LM",
     "serialNumber": "6FBDE599-57EB-46B4-BFF8-5481E1464074",
-    "barcodes": [
-        {
-            "message": "https://waldowski.me/static/zach%2Bbignerd.pkpass",
-            "format": "PKBarcodeFormatQR",
-            "messageEncoding": "iso-8859-1"
-        }
-    ],
     "organizationName": "Big Nerd Ranch",
     "description": "Zachary Waldowski",
-    "logoText": "Big Nerd Ranch",
-    "foregroundColor": "rgb(245, 244, 241)",
-    "backgroundColor": "rgb(68, 68, 64)",
-    "labelColor": "rgb(244, 176, 40)",
+    "foregroundColor": "rgb(186, 102, 36)",
+    "backgroundColor": "rgb(43, 32, 17)",
+    "labelColor": "rgb(212, 210, 210)",
     "generic": {
         "headerFields": [
             {
@@ -35,16 +27,16 @@
         ],
         "auxiliaryFields": [
             {
+                "key": "mail",
+                "label": "Mail",
+                "value": "zachary@bignerdranch.com",
+                "textAlignment": "PKTextAlignmentLeft"
+            },
+            {
                 "key": "twitter",
                 "label": "Twitter",
                 "value": "@zwaldowski",
                 "textAlignment": "PKTextAlignmentLeft"
-            },
-            {
-                "key": "mail",
-                "label": "Mail",
-                "value": "zachary@bignerdranch.com",
-                "textAlignment": "PKTextAlignmentRight"
             }
         ],
         "backFields": [
@@ -64,6 +56,11 @@
                 "attributedValue": "<a href=\"tel:+18433336836\">+1 (843) 333-6836</a>"
             },
             {
+                "key": "back-web",
+                "label": "Web",
+                "attributedValue": "<a href=\"https://waldowski.me\">https://waldowski.me</a>"
+            },
+            {
                 "key": "back-github",
                 "label": "GitHub",
                 "attributedValue": "<a href=\"https://github.com/zwaldowski\">@zwaldowski</a>"
@@ -74,16 +71,10 @@
                 "attributedValue": "<a href=\"https://twitter.com/zwaldowski\">@zwaldowski</a>"
             },
             {
-                "key": "back-web",
-                "label": "Web",
-                "attributedValue": "<a href=\"https://waldowski.me\">https://waldowski.me</a>"
-            },
-            {
                 "key": "back-vcard",
                 "label": "Contact Card",
-                "attributedValue": "<a href=\"https://waldowski.me/static/zach.vcf\">Link</a>"
+                "attributedValue": "<a href=\"https://cvws.icloud-content.com/B/AZxF7wYR--nLQX-sI7bhe1SCOxPAAe8GlCYWDkrGRErASOtnhiS1HhbE/zach.vcf?o=AlMtCfsJQ_pN0hOAW9g98PwF3exQM92yzjaJUj7F-ZGb&v=1&x=3&a=CAogGBeNNrjr4z0KcyVMyGhKsVG6t9S0cjqYzHEyaZ6r9VYSERCS49_esS0YksC74LEtIgEA&e=1559543865&k=kXCQ3m2v7zDE1UN0Bf34Kw&fl=&r=e6dca3ad-180d-4f14-9bbf-6217918d8709-1&ckc=com.apple.clouddocs&ckz=com.apple.CloudDocs&p=41&s=lKGM_MDr185NLl3iv6VpfhSe9tM\">Link</a>"
             }
-
         ]
     }
 }
