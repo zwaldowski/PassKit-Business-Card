@@ -1,13 +1,14 @@
-#!/usr/bin/env xcrun swift
+#!/usr/bin/env xcrun swift -swift-version 5
 
 import Foundation
 import Security
+import CommonCrypto
 
 // MARK: - Extensions
 
 func bail(_ text: String) -> Never {
-    struct Stream: TextOutputStream {
-        let fd: UnsafeMutablePointer<FILE>
+    struct Stderr: TextOutputStream {
+        let fd = Darwin.stderr
 
         func write(_ string: String) {
             flockfile(fd)
@@ -18,39 +19,49 @@ func bail(_ text: String) -> Never {
         }
     }
 
-    var stderr = Stream(fd: Darwin.stderr)
+    var stderr = Stderr()
     print(text, to: &stderr)
     exit(-1)
 }
 
-extension Collection where Iterator.Element: Equatable {
+extension Collection where Element: Equatable {
 
+    func value(after flag: Element) -> Element? {
+        return firstIndex(of: flag).map(suffix)?.dropFirst().first
+    }
+
+
+    @available(*, deprecated)
     func value<T>(after flag: Iterator.Element, map transform: (Iterator.Element) -> T?) -> T? {
-        return index(of: flag).flatMap({ index($0, offsetBy: 1, limitedBy: endIndex) }).map({ self[$0] }).flatMap(transform)
+        return value(after: flag).flatMap(transform)
+    }
+
+}
+
+
+extension String {
+
+    init<Data: Collection>(hexEncoding bytes: Data) where Data.Element == UInt8 {
+        self.init()
+        reserveCapacity(bytes.count * 2)
+        for byte in bytes {
+            if byte < 16 { append("0") }
+            append(String(byte, radix: 16, uppercase: false ))
+        }
     }
 
 }
 
 extension Data {
 
-    private typealias calculateSHA1_fn = @convention(c) (UnsafeRawPointer, Int32, UnsafeMutablePointer<UInt8>) -> UnsafeMutablePointer<UInt8>
-    private static let calculateSHA1 = unsafeBitCast(dlsym(UnsafeMutableRawPointer(bitPattern: -2), "CC_SHA1"), to: calculateSHA1_fn.self)
-
     func SHA1Sum() -> String {
-        let data = withUnsafeBytes { (srcPtr: UnsafePointer<UInt8>) -> Data in
-            var data = Data(count: 20)
-            _ = data.withUnsafeMutableBytes { (destPtr) in
-                Data.calculateSHA1(UnsafeRawPointer(srcPtr), numericCast(count), destPtr)
-            }
-            return data
+        let data = withUnsafeBytes { (buffer) -> [UInt8] in
+            var array = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+            CC_SHA1(buffer.baseAddress, CC_LONG(buffer.count), &array)
+            return array
         }
 
-        var string = ""
-        for byte in data {
-            if byte <= 0xF { string.unicodeScalars.append("0") }
-            string += String(byte, radix: 16)
-        }
-        return string
+        return String(hexEncoding: data)
     }
 
 }
@@ -94,13 +105,13 @@ enum Command {
     case sign(URL, output: URL?, suffix: String?)
     case verify(URL)
 
-    init(arguments: [String]) {
+    init(arguments: [String] = CommandLine.arguments) {
         let arguments = arguments.dropFirst()
-        if arguments.first == "sign", let input = arguments.dropFirst().value(after: "-i", map: URL.init(fileURLWithPath:)) {
-            let output = arguments.dropFirst().value(after: "-o", map: URL.init(fileURLWithPath:))
-            let certSuffix = arguments.dropFirst().value(after: "-c", map: { $0 })
+        if arguments.first == "sign", let input = arguments.dropFirst().value(after: "-i").flatMap(URL.init(fileURLWithPath:)) {
+            let output = arguments.dropFirst().value(after: "-o").flatMap(URL.init(fileURLWithPath:))
+            let certSuffix = arguments.dropFirst().value(after: "-c")
             self = .sign(input, output: output, suffix: certSuffix)
-        } else if arguments.first == "verify", let input = arguments.dropFirst().value(after: "-i", map: URL.init(fileURLWithPath:)) {
+        } else if arguments.first == "verify", let input = arguments.dropFirst().value(after: "-i").flatMap(URL.init(fileURLWithPath:)) {
             self = .verify(input)
         } else {
             self = .help
@@ -110,19 +121,28 @@ enum Command {
 
 // MARK: -
 
-let command = Command(arguments: CommandLine.arguments)
+struct PassManifests {
+
+
+
+}
+
+let command = Command()
 
 let fileManager = FileManager()
 let temporaryDirectory = fileManager.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 
 switch command {
 case .help:
-    print("usage:\n\tsignpass sign -i <raw pass> [-o <path>] [-c <certSuffix>]")
-    print("\t\tSign and zip a raw pass directory\n")
-    print("\tsignpass verify -i <pass>")
-    print("\t\tUnzip and verify a signed pass's signature and manifest. This DOES NOT validate pass content.\n")
-    print("\tsignpass help")
-    print("\t\tShows this help.\n")
+    print("""
+    usage:
+        passutil sign -i <raw pass> [-o <path>] [-c <certSuffix>]
+            Sign and zip a raw pass directory
+        passutil verify -i <pass>
+            Unzip and verify a signed pass's signature and manifest. This DOES NOT validate pass content.
+        passutil help
+            Shows this help.
+    """)
 case let .sign(input, output, certSuffix):
     // Dictionary to store our manifest hashes
     var manifests = [String: String]()
@@ -146,7 +166,7 @@ case let .sign(input, output, certSuffix):
 
     // Write out the manifest dictionary
     let manifestURL = temporaryDirectory.appendingPathComponent("manifest").appendingPathExtension("json")
-    let manifestData = try JSONSerialization.data(withJSONObject: manifests)
+    let manifestData = try JSONEncoder().encode(manifests)
     try manifestData.write(to: manifestURL)
 
     guard let certSuffix = certSuffix ?? passTypeIdentifier(passAt: input) else {
@@ -159,8 +179,8 @@ case let .sign(input, output, certSuffix):
 
     var resultCfData: CFData?
 
-    let status = manifestData.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
-        CMSEncodeContent(identifier, nil, nil, true, .attrSigningTime, UnsafeRawPointer(ptr), manifestData.count, &resultCfData)
+    let status = manifestData.withUnsafeBytes { (buffer) in
+        CMSEncodeContent(identifier, nil, nil, true, .attrSigningTime, buffer.baseAddress!, buffer.count, &resultCfData)
     }
 
     guard status == 0, let resultData = resultCfData as Data? else {
@@ -237,13 +257,13 @@ case let .verify(input):
     let signatureData = try Data(contentsOf: signatureURL)
 
     // set up a cms decoder
-    var decoder: CMSDecoder?
+    var decoder: CMSDecoder!
     CMSDecoderCreate(&decoder)
-    CMSDecoderSetDetachedContent(decoder!, manifestData as CFData)
-    _ = signatureData.withUnsafeBytes { (ptr: UnsafePointer<UInt8>) in
-        CMSDecoderUpdateMessage(decoder!, ptr, signatureData.count)
+    CMSDecoderSetDetachedContent(decoder, manifestData as CFData)
+    _ = signatureData.withUnsafeBytes { (buffer) in
+        CMSDecoderUpdateMessage(decoder, buffer.baseAddress!, buffer.count)
     }
-    CMSDecoderFinalizeMessage(decoder!)
+    CMSDecoderFinalizeMessage(decoder)
 
     let policy = SecPolicyCreateBasicX509()
     var status = CMSSignerStatus.unsigned
@@ -265,7 +285,7 @@ case let .verify(input):
 
     guard case .unspecified = trustResult else {
         let allProperties = (SecTrustCopyProperties(trust) as? [[String: Any]]) ?? []
-        let propertyStrings = allProperties.lazy.flatMap({ (properties) -> String? in
+        let propertyStrings = allProperties.lazy.compactMap({ (properties) -> String? in
             guard let title = properties[kSecPropertyTypeTitle as String] as? String else { return nil }
             let error = properties[kSecPropertyTypeError as String] as? String
             return "\t\(title): \(error ?? "(nil)")"
